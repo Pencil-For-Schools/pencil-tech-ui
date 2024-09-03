@@ -36,28 +36,56 @@ Develop an inventory system that tracks items available in the Pencil Box, manag
      - View inventory status at a specific Pencil Box location.
 
 ---
+Here’s the updated plan for **Phase 2** of the Inventory System, incorporating the use of full-stack Django templates to handle the front-end, focusing on seamless integration with Django Admin and backend functionality.
 
-### **Phase 2: Front-End Development (8 hours)**
+### **Revised Phase 2: Full-Stack Django Template Development (4 hours)**
+
+---
 
 #### **Main Tasks:**
-1. **Inventory Dashboard**
-   - [ ] **Design dashboard layout**:
-     - Display item names, current stock, and alerts for low stock.
-   - [ ] **Implement item list component**:
-     - Fetch data from API and display inventory items.
 
-2. **Item Intake Form**
-   - [ ] **Build intake form**:
-     - Fields: Item selection, quantity, location, updated by, donated by, and intake type.
-   - [ ] **Form Submission Handling**:
-     - Connect form to the backend to record inventory intake.
+### **1. Develop Inventory Dashboard with Django Templates**
 
-3. **Location Management Interface**
-   - [ ] **Develop location overview page**:
-     - Show inventory items available at each location with stock levels.
-   - [ ] **Location details**:
-     - Allow detailed view and adjustments of inventory per location.
+- **Task 1: Set Up Dashboard View in Django**
+  - [ ] **Action:** Create a Django view to serve the inventory dashboard using Django templates.
+  - **Details:**
+    - Develop a view that fetches inventory data from the backend using Django ORM.
+    - Pass data to the template to render a comprehensive inventory overview.
 
+- **Task 2: Design Dashboard Template**
+  - [ ] **Action:** Create an HTML template for the dashboard using Django’s templating engine.
+  - **Details:**
+    - Design a layout that displays key metrics like total stock, low stock items, and recent intake or adjustments.
+    - Use Django template tags to loop through and display inventory items dynamically.
+    - Include sorting and filtering options directly in the template for user interactivity.
+
+- **Task 3: Integrate Backend Data into the Template**
+  - [ ] **Action:** Connect the dashboard template with backend data using context from Django views.
+  - **Details:**
+    - Fetch data for inventory items, including details like name, stock level, and location.
+    - Ensure data is displayed in an organized and easy-to-understand format.
+    - Implement conditional logic in the template to highlight low stock items.
+
+- **Task 4: Add Low Stock Alerts and Visual Indicators**
+  - [ ] **Action:** Use template logic to display alerts for low stock directly in the dashboard.
+  - **Details:**
+    - Highlight items below the low stock threshold with visual indicators (e.g., red text or warning icons).
+    - Optionally link to the relevant Django Admin page for quick access to adjustments.
+
+---
+
+### **Time Allocation:**
+- **Set Up View and Fetch Data:** 1 hour
+- **Design and Implement Dashboard Template:** 2 hours
+- **Add Alerts and Final Integration:** 1 hour
+
+---
+
+### **Dependencies:**
+- Django backend must be properly set up with data models configured and populated.
+- Ensure that URLs are correctly mapped to views to serve the templates as needed.
+
+Using Django templates allows for a fully integrated stack where both the front-end and back-end work seamlessly within the Django framework, simplifying development and deployment. Let me know if there’s anything else you’d like to adjust!
 ---
 
 ### **Phase 3: Stock Management Logic (4 hours)**
