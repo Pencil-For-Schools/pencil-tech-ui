@@ -5,6 +5,7 @@ import InventoryListItem from "@/components/inventory/InventoryListItem";
 import { useRouter } from "next/navigation";
 import { inventory } from '@/utils/data/sample_inventory_response'
 
+// TODO: export default function InventoryList({inventory}) {
 export default function InventoryList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
