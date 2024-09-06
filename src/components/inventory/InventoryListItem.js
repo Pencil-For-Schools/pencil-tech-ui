@@ -30,23 +30,28 @@ export default function InventoryListItem({ item, orderId, min = 0 }) {
     if (cart[item.id]) setQty(cart[item.id].qty);
   }, [item.id, getCart]);
 
-  const updateCart = (newQty) => {
-    const cart = getCart();
-    if (newQty <= 0) {
-      delete cart[item.id];
-    } else {
-      cart[item.id] = {
-        order_id: orderId,
-        name: item.name,
-        value: item.value,
-        item_id: item.id,
-        qty: newQty,
-      };
-    }
-    saveCart(cart);
-    setQty(newQty);
-  };
+  // Wrap updateCart in useCallback
+  const updateCart = useCallback(
+    (newQty) => {
+      const cart = getCart();
+      if (newQty <= 0) {
+        delete cart[item.id];
+      } else {
+        cart[item.id] = {
+          order_id: orderId,
+          name: item.name,
+          value: item.value,
+          item_id: item.id,
+          qty: newQty,
+        };
+      }
+      saveCart(cart);
+      setQty(newQty);
+    },
+    [getCart, saveCart, item.id, orderId]
+  );
 
+  // Handle click using the memoized updateCart function
   const handleClick = useCallback(
     (action) => {
       if (action === "add" && qty < max) {
