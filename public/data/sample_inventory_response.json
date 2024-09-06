@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "test item 1",
+    "max_amount": 4,
+    "in_stock": 3,
+    "value": 3.99
+  },
+  {
+    "id": 2,
+    "name": "test item 2",
+    "max_amount": 4,
+    "in_stock": 33,
+    "value": 3.99
+  },
+  {
+    "id": 3,
+    "name": "test item 3",
+    "max_amount": 4,
+    "in_stock": 10,
+    "value": 3.99
+  },
+  {
+    "id": 4,
+    "name": "test item 4",
+    "max_amount": 10,
+    "in_stock": 8,
+    "value": 3.99
+  },
+  {
+    "id": 5,
+    "name": "test item 5",
+    "max_amount": 4,
+    "in_stock": 33,
+    "value": 3.99
+  }
+]
