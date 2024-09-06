@@ -13,7 +13,18 @@ export default function ThankYouPage() {
     if (showThankYou !== "true") {
       router.push("/login");
     } else {
-      setLoading(false); // Stop loading once the check is done
+      // Remove canshop property from local storage
+      localStorage.removeItem("canshop");
+      setLoading(false);
+
+      // Set a timeout to redirect after 20 seconds
+      const timer = setTimeout(() => {
+        sessionStorage.removeItem("showThankYou");
+        router.push("/login");
+      }, 20000);
+
+      // Cleanup the timer on component unmount
+      return () => clearTimeout(timer);
     }
   }, [router]);
 

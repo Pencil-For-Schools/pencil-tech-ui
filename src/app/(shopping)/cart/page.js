@@ -1,39 +1,58 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Cart() {
   const [cart, setCart] = useState({});
   const [totalImpact, setTotalImpact] = useState(0);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
+
+  useEffect(() => {
+    const canShop = localStorage.getItem("canshop") === "true";
+
+    if (!canShop) {
+      router.push("/login");
+    } else {
+      setLoading(false);
+    }
+  }, [router]);
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || {};
     setCart(savedCart);
+  }, []);
 
-    // Calculate total impact only if the cart is not empty
-    if (Object.keys(savedCart).length > 0) {
-      const impact = Object.values(savedCart).reduce(
+  const impact = useMemo(() => {
+    if (Object.keys(cart).length > 0) {
+      return Object.values(cart).reduce(
         (acc, item) => acc + item.qty * item.value,
         0
       );
-      setTotalImpact(impact.toFixed(2));
     }
-  }, []);
+    return 0;
+  }, [cart]);
 
   const handleBack = () => {
     router.push("/shop");
   };
 
   const handleSubmit = () => {
-    console.log("Order submitted:", cart);
     localStorage.removeItem("cart");
     sessionStorage.setItem("showThankYou", "true");
     router.push("/thank-you");
   };
 
   const isEmpty = Object.keys(cart).length === 0;
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="loader border-t-4 border-blue-500 border-solid rounded-full w-12 h-12 animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 pb-20">
@@ -76,16 +95,15 @@ export default function Cart() {
                 ))}
               </tbody>
             </table>
-            {totalImpact > 0 && (
+            {impact > 0 && (
               <div className="text-lg font-bold text-green-600">
-                Total Impact: ${totalImpact}
+                Total Impact: ${impact.toFixed(2)}
               </div>
             )}
           </>
         )}
       </div>
 
-      {/* Fixed Claim Supplies Button */}
       {!isEmpty && (
         <button
           onClick={handleSubmit}

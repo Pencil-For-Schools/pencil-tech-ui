@@ -1,12 +1,27 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import InventoryListItem from "@/components/inventory/InventoryListItem";
 import { useRouter } from "next/navigation";
 
 export default function InventoryList({ items }) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
+
+  useEffect(() => {
+    const checkCanShop = () => {
+      const canShop = localStorage.getItem("canshop") === "true";
+
+      if (!canShop) {
+        router.push("/login"); // Redirect to login or another appropriate page
+      } else {
+        setLoading(false); // Stop loading when access is granted
+      }
+    };
+
+    checkCanShop();
+  }, [router]);
 
   // Debounce without external libraries
   const handleSearch = useCallback(() => {
@@ -26,6 +41,15 @@ export default function InventoryList({ items }) {
   const handleReviewOrder = () => {
     router.push("/cart");
   };
+
+  if (loading) {
+    // Loader while checking access permission
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="loader border-t-4 border-blue-500 border-solid rounded-full w-12 h-12 animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative bg-white min-h-screen">
