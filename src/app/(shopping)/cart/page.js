@@ -29,19 +29,20 @@ export default function Cart() {
   const handleSubmit = () => {
     console.log("Order submitted:", cart);
     localStorage.removeItem("cart");
+    sessionStorage.setItem("showThankYou", "true");
     router.push("/thank-you");
   };
 
   const isEmpty = Object.keys(cart).length === 0;
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="min-h-screen bg-gray-100 p-4 pb-20">
       <div className="max-w-md mx-auto bg-white shadow-md rounded p-6">
         <button
           onClick={handleBack}
-          className="text-blue-600 font-semibold mb-4"
+          className="text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded-full font-bold mb-4 transition duration-300"
         >
-          &larr; Back
+          &larr; Back to Shop
         </button>
         {isEmpty ? (
           <div className="text-center">
@@ -59,20 +60,22 @@ export default function Cart() {
         ) : (
           <>
             <h1 className="text-xl font-bold mb-4">Order Summary</h1>
-            <ul className="mb-6">
-              {Object.values(cart).map((item) => (
-                <li key={item.item_id} className="flex justify-between mb-2">
-                  <span>{item.name}</span>
-                  <span>Qty: {item.qty}</span>
-                </li>
-              ))}
-            </ul>
-            <button
-              onClick={handleSubmit}
-              className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 mb-4"
-            >
-              Claim Supplies
-            </button>
+            <table className="w-full mb-6 text-left border-collapse">
+              <thead>
+                <tr>
+                  <th className="border-b py-2">Item</th>
+                  <th className="border-b py-2">Qty</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.values(cart).map((item) => (
+                  <tr key={item.item_id}>
+                    <td className="py-2">{item.name}</td>
+                    <td className="py-2">{item.qty}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
             {totalImpact > 0 && (
               <div className="text-lg font-bold text-green-600">
                 Total Impact: ${totalImpact}
@@ -81,6 +84,16 @@ export default function Cart() {
           </>
         )}
       </div>
+
+      {/* Fixed Claim Supplies Button */}
+      {!isEmpty && (
+        <button
+          onClick={handleSubmit}
+          className="fixed bottom-0 left-0 right-0 bg-red-500 text-white py-3 rounded-none hover:bg-red-600 text-lg w-full"
+        >
+          Claim Supplies
+        </button>
+      )}
     </div>
   );
 }

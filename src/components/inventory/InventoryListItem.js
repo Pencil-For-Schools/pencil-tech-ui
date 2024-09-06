@@ -35,7 +35,13 @@ export default function InventoryListItem({ item, orderId, min = 0 }) {
     if (newQty <= 0) {
       delete cart[item.id];
     } else {
-      cart[item.id] = { order_id: orderId, name: item.name, value: item.value, item_id: item.id, qty: newQty };
+      cart[item.id] = {
+        order_id: orderId,
+        name: item.name,
+        value: item.value,
+        item_id: item.id,
+        qty: newQty,
+      };
     }
     saveCart(cart);
     setQty(newQty);
@@ -61,40 +67,51 @@ export default function InventoryListItem({ item, orderId, min = 0 }) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-white rounded shadow-md p-4 mb-4">
-      <div className="flex items-center justify-between w-full">
-        <span className="text-sm text-blue-500 cursor-pointer" onClick={handleSetMin}>
+    <div className="flex flex-col bg-white rounded shadow-md p-4 mb-4 max-w-sm mx-auto w-full">
+      <h2 className="text-lg font-semibold text-center mb-2">{item.name}</h2>
+      <div className="flex items-center justify-between">
+        <button
+          onClick={handleSetMin}
+          className="text-sm text-blue-500 hover:text-blue-700"
+          aria-label="Set to minimum quantity"
+        >
           Min
-        </span>
-        <h2 className="text-lg font-semibold">{item.name}</h2>
-        <span className="text-sm text-blue-500 cursor-pointer" onClick={handleSetMax}>
+        </button>
+        <div className="flex items-center">
+          <button
+            onClick={() => handleClick("subtract")}
+            disabled={qty === min}
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100"
+            aria-label="Decrease quantity"
+          >
+            <MinusIcon className="h-5 w-5 text-gray-700" />
+          </button>
+          <input
+            type="number"
+            value={qty}
+            readOnly
+            className="mx-4 w-12 text-xl text-center border-none focus:outline-none"
+            max={max}
+            aria-label={`Quantity of ${item.name}`}
+          />
+          <button
+            onClick={() => handleClick("add")}
+            disabled={qty === max}
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-green-200 hover:bg-green-300 disabled:bg-green-100"
+            aria-label="Increase quantity"
+          >
+            <PlusIcon className="h-5 w-5 text-green-700" />
+          </button>
+        </div>
+        <button
+          onClick={handleSetMax}
+          className="text-sm text-blue-500 hover:text-blue-700"
+          aria-label="Set to maximum quantity"
+        >
           Max
-        </span>
-      </div>
-      <p className="text-center text-gray-600">Limit: {max}</p>
-      <div className="flex items-center justify-between mt-2">
-        <button
-          onClick={() => handleClick("subtract")}
-          disabled={qty === min}
-          className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100"
-        >
-          <MinusIcon className="h-5 w-5 text-gray-700" />
-        </button>
-        <input
-          type="number"
-          value={qty}
-          readOnly
-          className="mx-4 text-xl text-center border-none focus:outline-none"
-          max={max}
-        />
-        <button
-          onClick={() => handleClick("add")}
-          disabled={qty === max}
-          className="flex items-center justify-center w-10 h-10 rounded-full bg-green-200 hover:bg-green-300 disabled:bg-green-100"
-        >
-          <PlusIcon className="h-5 w-5 text-green-700" />
         </button>
       </div>
+      <p className="text-sm text-gray-500 text-center mt-2">Limit: {max}</p>
     </div>
   );
 }
