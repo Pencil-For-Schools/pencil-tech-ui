@@ -1,36 +1,103 @@
-# pencil-tech-ui
+
+# Pencil Tech UI
+
+Welcome to the Pencil Tech UI project! This repository contains the frontend for the shopping and scheduling applications that support educators by providing a seamless and intuitive user experience.
+
+## Overview
+
+Pencil Tech UI is built with Next.js and Tailwind CSS, providing a modern, responsive, and engaging interface that connects directly with the backend services of Pencil Tech. It serves as the frontend hub for managing shopping and scheduling needs, empowering teachers and administrators with the tools they need.
 
 ## Getting Started
 
-First, run the development server:
+Follow the steps below to set up the Pencil Tech UI project on your local machine after cloning it from GitHub.
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- **Node.js** (version 18+ recommended)
+- **npm** (Node Package Manager)
+
+### Installation
+
+1. **Clone the Repository:**
+
+   Clone the Pencil Tech UI project from GitHub:
+
+   ```bash
+   git clone git@github.com:Pencil-For-Schools/pencil-tech-ui.git
+   ```
+
+2. **Navigate to the Project Directory:**
+
+   Change into the cloned project’s directory:
+
+   ```bash
+   cd pencil-tech-ui
+   ```
+
+3. **Install Dependencies:**
+
+   Use npm to install the project dependencies:
+
+   Using npm:
+
+   ```bash
+   npm install
+   ```
+
+### Running the Development Server
+
+Once the dependencies are installed, start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You can view the application in your browser at:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<!-- ### Environment Variables
 
-## Learn More
+Create a `.env` file in the root of your project for environment variables. Refer to the `.env.sample` file for the required variables and formats. -->
 
-To learn more about Next.js, take a look at the following resources:
+### Linting and Formatting
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Run the following commands to lint and format your code:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Linting:** Check your code for errors.
 
-## Deploy on Vercel
+  Using npm:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  ```bash
+  npm run lint
+  ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Formatting:** Automatically format your code using Prettier.
+
+  Using npm:
+
+  ```bash
+  npm run format
+  ```
+
+## Contributing
+
+We welcome contributions! Please fork the repository, create a new branch, make your changes, and submit a pull request.
+
+### Guidelines
+
+- Follow the project's code of conduct.
+- Create issues for any bugs or feature requests.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgements
+
+Special thanks to our contributors and the Pencil Tech community for their support and inspiration.
+
