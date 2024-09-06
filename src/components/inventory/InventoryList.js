@@ -3,8 +3,9 @@
 import { useState, useMemo, useCallback, useEffect } from "react";
 import InventoryListItem from "@/components/inventory/InventoryListItem";
 import { useRouter } from "next/navigation";
+import { inventory } from '@/utils/data/sample_inventory_response'
 
-export default function InventoryList({ items }) {
+export default function InventoryList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -35,8 +36,8 @@ export default function InventoryList({ items }) {
   const debouncedSearch = handleSearch();
 
   const filteredItems = useMemo(() => {
-    return items.filter((item) => item.name.toLowerCase().includes(searchTerm));
-  }, [searchTerm, items]);
+    return inventory.filter((item) => item.name.toLowerCase().includes(searchTerm));
+  }, [searchTerm, inventory]);
 
   const handleReviewOrder = () => {
     router.push("/cart");

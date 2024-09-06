@@ -1,4 +1,4 @@
-[
+export const inventory =[
   {
     "id": 1,
     "name": "Activity/Outloud Disney Books",
