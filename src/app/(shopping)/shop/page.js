@@ -5,4 +5,5 @@ export default async function ShopPage() {
   const data = await res.json();
 
   return <InventoryList items={data} />;
+  
 }
