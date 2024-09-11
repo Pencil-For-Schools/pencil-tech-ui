@@ -86,13 +86,13 @@ export default function Cart() {
             <div className="flex flex-col space-y-4">
               <button
                 onClick={handleSubmit}
-                className="bg-green-600 text-white py-3 rounded-full hover:bg-green-700 transition duration-300"
+                className="bg-green-600 text-white py-3 hover:bg-green-700 transition duration-300"
               >
                 Finalize Order
               </button>
               <button
                 onClick={handleBack}
-                className="bg-white text-black border border-gray-300 py-3 rounded-full hover:bg-gray-100 transition duration-300"
+                className="bg-white text-black border border-gray-300 py-3 hover:bg-gray-100 transition duration-300"
               >
                 Go Back
               </button>

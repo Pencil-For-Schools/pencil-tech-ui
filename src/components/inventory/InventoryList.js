@@ -4,7 +4,11 @@ import { useState, useMemo, useCallback, useEffect } from "react";
 import InventoryListItem from "@/components/inventory/InventoryListItem";
 import { useRouter } from "next/navigation";
 import { inventory } from "@/utils/data/sample_inventory_response";
-import { QueueListIcon, ShoppingCartIcon, TrashIcon } from "@heroicons/react/20/solid";
+import {
+  QueueListIcon,
+  ShoppingCartIcon,
+  TrashIcon,
+} from "@heroicons/react/20/solid";
 
 export default function InventoryList() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -100,7 +104,10 @@ export default function InventoryList() {
    * @returns {boolean} - True if there are items in the cart, false otherwise.
    */
   const hasItemsInCart = Object.values(cart).some((item) => item.qty > 0);
-  const cartCount = Object.values(cart).reduce((total, item) => total + item.qty, 0);
+  const cartCount = Object.values(cart).reduce(
+    (total, item) => total + item.qty,
+    0
+  );
 
   if (loading) {
     return (
@@ -116,17 +123,24 @@ export default function InventoryList() {
       <div className="max-w-xl mx-auto p-4 pb-20">
         {/* Search Bar and Review Order Button */}
         <div className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 p-4 flex max-w-xl mx-auto flex-col">
-          <div className="flex justify-left z-50 pb-3">
-            <img
-              src="/images/pencil-icon-2.f7c1ee4b.svg"
-              id="pencil-icon"
-              alt="A cartoon pencil"
-              className="h-6 w-6 pr-3"
-            />
-            <div className="text-left">
-              {/* Doubled the font size */}
-              <h1 className="text-black font-bold text-lg">PENCIL BOX</h1>{" "}
-              {/* Doubled the font size */}
+          <div className="flex justify-between z-50 pb-3">
+            <div className="flex justify-left">
+              <img
+                src="/images/pencil-icon-2.f7c1ee4b.svg"
+                id="pencil-icon"
+                alt="A cartoon pencil"
+                className="h-6 w-6 pr-3"
+              />
+              <div className="text-left">
+                {/* Doubled the font size */}
+                <h1 className="text-black font-bold text-lg">
+                  PENCIL BOX
+                </h1>{" "}
+                {/* Doubled the font size */}
+              </div>
+            </div>
+            <div>
+              Welcome, NAME!
             </div>
           </div>
           <div className="flex items-center bg-gray-100 w-full max-w-md px-3">
