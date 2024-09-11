@@ -2,3 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
+.blob-1 {
+  width: auto;
+  background: url(/media/background/welcome-background-1.4f75f952.svg) no-repeat;
+  background-size: 15em;
+  background-position-x: 100%;
+  background-position-y: 0;
+  width: 73%
+}
+
+.blob-1,.blob-2 {
+  max-width: 100%;
+  height: auto;
+  padding: 0;
+  position: absolute;
+  height: 35%;
+  top: 0;
+  margin: 0;
+  right: 0
+}
+
+.blob-2 {
+  width: auto;
+  background: url(/media/background/welcome-background-2.5cad7714.svg) no-repeat;
+  background-size: 8em;
+  background-position-y: 5.5em;
+  left: 0;
+  width: 38%
+}
+
+.dotted-line-1 {
+  background: url(/media/background/Vector-3.6f0a0bff.svg) no-repeat;
+  background-size: 12em;
+  background-position-y: -1em;
+  background-position-x: 0;
+  width: 50%;
+  z-index: 2;
+  left: 0;
+  top: 0
+}
+
+.dotted-line-1,.dotted-line-2 {
+  padding: 0;
+  height: 20%;
+  position: absolute
+}
+
+.dotted-line-2 {
+  background: url(/media/background/Vector-4.a3db0006.svg) no-repeat;
+  background-size: 14.2em;
+  background-position-y: .8em;
+  background-position-x: -2.9em;
+  width: 55%;
+  z-index: 0;
+  right: 0;
+  top: 4.5em
+}
+
+@font-face {
+  font-family: "Bitter";
+  src: local("Bitter"),url(/media/fonts/Bitter-Regular.8393e453.ttf) format("truetype")
+}
+
+@font-face {
+  font-family: "Bitter";
+  font-weight: medium;
+  src: local("Bitter"),url(/media/fonts/Bitter-Medium.45ca6931.ttf) format("truetype")
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 400;
+  src: local("Roboto"),url(/media/fonts/Roboto-Regular.a8d6ac03.ttf) format("truetype")
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 200;
+  src: local("Roboto"),url(/media/fonts/Roboto-Light.8be2d148.ttf) format("truetype")
+}
+
+html {
+  background-color: #f6f6f6;
+  touch-action: manipulation;
+  font-family: "Bitter",serif
+}
+
