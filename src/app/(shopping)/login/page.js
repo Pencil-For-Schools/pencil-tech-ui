@@ -17,8 +17,8 @@ export default function LoginPage({ params, searchParams }) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-50">
-      <div className="p-4 rounded-lg shadow-md w-full max-w-md text-center">
+    <div className="flex flex-col items-center justify-center p-4 mt-20 relative z-[1000]">
+      <div className="p-4 rounded-lg shadow-md w-full max-w-md bg-gray-50 text-center">
         <div className="flex justify-center z-50 space-x-4 p-4 mb-4">
           <img
             src="/images/pencil-icon-2.f7c1ee4b.svg"
