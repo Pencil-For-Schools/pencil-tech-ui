@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 
 export default function Cart() {
   const [cart, setCart] = useState({});
-  const [totalImpact, setTotalImpact] = useState(0);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -55,15 +54,51 @@ export default function Cart() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 pb-20">
-      <div className="max-w-md mx-auto bg-white shadow-md rounded p-6">
-        <button
-          onClick={handleBack}
-          className="text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded-full font-bold mb-4 transition duration-300"
-        >
-          &larr; Back to Shop
-        </button>
-        {isEmpty ? (
+    <div className="min-h-screen bg-gray-100 p-4 pb-20 relative z-[1000]">
+      <div className="max-w-md mx-auto">
+        <h1 className="text-2xl font-bold text-center mb-6">Order Summary</h1>
+        {!isEmpty ? (
+          <>
+            <div className="bg-white shadow-md rounded p-4 mb-6">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr>
+                    <th className="border-b-2 border-gray-300 pb-2 text-left text-gray-700 font-semibold">Item</th>
+                    <th className="border-b-2 border-gray-300 pb-2 text-right text-gray-700 font-semibold">Qty</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.values(cart).map((item) => (
+                    <tr key={item.item_id} className="border-b border-gray-200">
+                      <td className="py-2 text-gray-800">{item.name}</td>
+                      <td className="py-2 text-right font-semibold text-gray-800">{item.qty}</td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td className="pt-4 font-bold text-green-700">Total Impact</td>
+                    <td className="pt-4 text-right font-bold text-green-700">${impact.toFixed(2)}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div className="flex flex-col space-y-4">
+              <button
+                onClick={handleSubmit}
+                className="bg-green-600 text-white py-3 rounded-full hover:bg-green-700 transition duration-300"
+              >
+                Finalize Order
+              </button>
+              <button
+                onClick={handleBack}
+                className="bg-white text-black border border-gray-300 py-3 rounded-full hover:bg-gray-100 transition duration-300"
+              >
+                Go Back
+              </button>
+            </div>
+          </>
+        ) : (
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-4">Your Cart is Empty</h1>
             <p className="mb-6">
@@ -76,42 +111,8 @@ export default function Cart() {
               Go Back to Shop
             </button>
           </div>
-        ) : (
-          <>
-            <h1 className="text-xl font-bold mb-4">Order Summary</h1>
-            <table className="w-full mb-6 text-left border-collapse">
-              <thead>
-                <tr>
-                  <th className="border-b py-2">Item</th>
-                  <th className="border-b py-2">Qty</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.values(cart).map((item) => (
-                  <tr key={item.item_id}>
-                    <td className="py-2">{item.name}</td>
-                    <td className="py-2">{item.qty}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {impact > 0 && (
-              <div className="text-lg font-bold text-green-600">
-                Total Impact: ${impact.toFixed(2)}
-              </div>
-            )}
-          </>
         )}
       </div>
-
-      {!isEmpty && (
-        <button
-          onClick={handleSubmit}
-          className="fixed bottom-0 left-0 right-0 bg-red-500 text-white py-3 rounded-none hover:bg-red-600 text-lg w-full"
-        >
-          Claim Supplies
-        </button>
-      )}
     </div>
   );
 }
