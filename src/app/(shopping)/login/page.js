@@ -83,11 +83,11 @@ export default function LoginPage({ params, searchParams }) {
           )}
         </form>
 
-        <div class="pt-10 text-left">
-          <p class="font-semibold text-gray-500 mb-1">Don’t know your Pencil ID?</p>
-          <p class="text-gray-400">
+        <div className="pt-10 text-left">
+          <p className="font-semibold text-gray-500 mb-1">Don’t know your Pencil ID?</p>
+          <p className="text-gray-400">
             Please contact Pencil Box: 
-            <a href="mailto:email@pencilbox.com" class="text-blue-500 underline">email@pencilbox.com</a> <br />
+            <a href="mailto:email@pencilbox.com" className="text-blue-500 underline">email@pencilbox.com</a> <br />
             or ###-###-####
           </p>
         </div>
