@@ -3,26 +3,48 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { TEACHER_EMAIL_INVALID } from "@/utils/constants";
+import {
+  TEACHER_EMAIL_INVALID,
+  TEACHER_EMAIL_NOT_SCHEDULED,
+  APPOINTMENT_IN_PAST,
+  APPOINTMENT_IN_FUTURE,
+} from "@/utils/constants";
 
 export default function LoginPage({ params, searchParams }) {
   const [pencilId, setPencilId] = useState("");
   const [location, setLocation] = useState("");
-  const [isInvalidEmail, setIsInvalidEmail] = useState(false);
+  const [isInvalidShoppingState, setIsInvalidShoppingState] = useState(false);
+  const [isFutureAppointment, setIsFutureAppointment] = useState(false);
   const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      throw new Error(TEACHER_EMAIL_INVALID);
+      // Uncomment one to trigger an error state
+      // throw new Error(TEACHER_EMAIL_INVALID);
+      // throw new Error(TEACHER_EMAIL_NOT_SCHEDULED);
+      // throw new Error(APPOINTMENT_IN_FUTURE);
+      // throw new Error(APPOINTMENT_IN_PAST);
+
       // Add canshop true to local storage
       localStorage.setItem("canshop", "true");
       // Navigate to the shop page
       router.push("/shop");
     } catch (error) {
-      if (error.message === TEACHER_EMAIL_INVALID) {
-        setIsInvalidEmail(true);
+      // TODO: When we have a payload from the api, the check should be on the error_type property
+      if (error.message === APPOINTMENT_IN_FUTURE) {
+        setIsFutureAppointment(true);
+        return;
       }
+      if (
+        error.message === TEACHER_EMAIL_INVALID ||
+        error.message === TEACHER_EMAIL_NOT_SCHEDULED ||
+        error.message === APPOINTMENT_IN_PAST
+      ) {
+        setIsInvalidShoppingState(true);
+        return;
+      }
+      console.error(error.message);
     }
   };
 
@@ -47,6 +69,12 @@ export default function LoginPage({ params, searchParams }) {
           {!(searchParams.location && searchParams.pencilId) &&
             "Enter your details to continue"}
         </p>
+        {isFutureAppointment && (
+          <p className="text-center text-red-500 mb-4">
+            {`You have an appointment scheduled in the future. Please come back during your scheduled shopping time.`}
+          </p>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-3">
           <input
             type="text"
@@ -72,7 +100,7 @@ export default function LoginPage({ params, searchParams }) {
             <option value="3">Madison</option>
           </select>
 
-          {isInvalidEmail ? (
+          {isInvalidShoppingState ? (
             <div className="mt-10">
               <p className="text-red-600 text-sm font-semibold pt-4">
                 {`We couldn't find an appointment for you in our records. Please schedule a shopping appointment by clicking the button below.`}
@@ -91,7 +119,8 @@ export default function LoginPage({ params, searchParams }) {
                 type="submit"
                 className={`w-full text-white py-4 font-semibold transition duration-200 ${
                   !(searchParams.location || location) ||
-                  !(searchParams.pencilId || pencilId)
+                  !(searchParams.pencilId || pencilId) ||
+                  isFutureAppointment
                     ? "hover:bg-gray-300 bg-gray-300"
                     : "hover:bg-gray-800 bg-gray-900 animate-bounce"
                 }`}
@@ -109,7 +138,7 @@ export default function LoginPage({ params, searchParams }) {
         {/* <div className="pt-10 text-left">
           <p className="font-semibold text-gray-500 mb-1">Don’t know your Pencil ID?</p>
           <p className="text-gray-400">
-            Please contact Pencil Box: 
+            Please contact Pencil Box:
             <a href="mailto:email@pencilbox.com" className="text-blue-500 underline">email@pencilbox.com</a> <br />
             or ###-###-####
           </p>
