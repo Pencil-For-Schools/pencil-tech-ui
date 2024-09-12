@@ -52,7 +52,7 @@ export default function InventoryList() {
    */
   const filteredItems = useMemo(() => {
     return inventory.filter((item) =>
-      item.name.toLowerCase().includes(searchTerm)
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [searchTerm, inventory]);
 
@@ -139,9 +139,7 @@ export default function InventoryList() {
                 {/* Doubled the font size */}
               </div>
             </div>
-            <div>
-              Welcome, NAME!
-            </div>
+            <div>Welcome, NAME!</div>
           </div>
           <div className="flex items-center bg-gray-100 w-full max-w-md px-3">
             <input
@@ -164,18 +162,29 @@ export default function InventoryList() {
         </div>
 
         {/* Adjust padding to prevent overlap */}
-        <div className="pt-10">
-          <h2 className="text-2xl font-bold text-center">Select your Items</h2>
-          {filteredItems.map((item) => (
-            <InventoryListItem
-              key={item.id}
-              item={item}
-              cart={cart}
-              setCart={updateCartInLocalStorage}
-              qty={cart[item.id]?.qty || 0} // Pass the current quantity from the cart
-            />
-          ))}
-        </div>
+        {filteredItems.length ? (
+          <div className="pt-10">
+            <h2 className="text-2xl font-bold text-center">
+              Select your Items
+            </h2>
+            {filteredItems.map((item) => (
+              <InventoryListItem
+                key={item.id}
+                item={item}
+                cart={cart}
+                setCart={updateCartInLocalStorage}
+                qty={cart[item.id]?.qty || 0} // Pass the current quantity from the cart
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="pt-12">
+            <h2 className="text-2xl font-bold text-center">
+              Looks like we are all out of <br /> {searchTerm}!
+            </h2>
+            <p className="text-lg font-bold pt-10 text-center">Try another search!</p>
+          </div>
+        )}
       </div>
 
       {/* Sticky Footer */}
