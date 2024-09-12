@@ -34,7 +34,7 @@ export default function SelectTime() {
 
     return (
         <main>
-            <div className="flex flex-col gap-10 sm:items-center px-5 py-10">
+            <div className="flex flex-col gap-10 sm:items-center px-5 py-10 relative z-[1000]">
                 <h1 className="font-bold text-3xl">Select Your Shop Date</h1>
 
                 <ul className="flex flex-col gap-8">
