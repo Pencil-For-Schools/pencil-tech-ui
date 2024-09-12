@@ -2,18 +2,28 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { TEACHER_EMAIL_INVALID } from "@/utils/constants";
 
 export default function LoginPage({ params, searchParams }) {
   const [pencilId, setPencilId] = useState("");
   const [location, setLocation] = useState("");
+  const [isInvalidEmail, setIsInvalidEmail] = useState(false);
   const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add canshop true to local storage
-    localStorage.setItem("canshop", "true");
-    // Navigate to the shop page
-    router.push("/shop");
+    try {
+      throw new Error(TEACHER_EMAIL_INVALID);
+      // Add canshop true to local storage
+      localStorage.setItem("canshop", "true");
+      // Navigate to the shop page
+      router.push("/shop");
+    } catch (error) {
+      if (error.message === TEACHER_EMAIL_INVALID) {
+        setIsInvalidEmail(true);
+      }
+    }
   };
 
   return (
@@ -61,8 +71,21 @@ export default function LoginPage({ params, searchParams }) {
             <option value="2">Antioch</option>
             <option value="3">Madison</option>
           </select>
-          {!(searchParams.location || location) ||
-          !(searchParams.pencilId || pencilId) ? null : (
+
+          {isInvalidEmail ? (
+            <div className="mt-10">
+              <p className="text-red-600 text-sm font-semibold pt-4">
+                {`We couldn't find an appointment for you in our records. Please schedule a shopping appointment by clicking the button below.`}
+              </p>
+              <p className="text-red-500 text-sm font-semibold py-2 italic">
+                {`If you believe this is an error, please contact Pencil Box at XXX-XXX-XXXX.`}
+              </p>
+              <Link href="/select-time">
+                <button className="w-full text-white py-4 px-4 font-semibold bg-blue-600 hover:bg-blue-700">{`Schedule Shopping`}</button>
+              </Link>
+            </div>
+          ) : !(searchParams.location || location) ||
+            !(searchParams.pencilId || pencilId) ? null : (
             <div className="mt-10">
               <button
                 type="submit"
