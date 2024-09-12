@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircleIcon } from "@heroicons/react/20/solid";
+import { StarIcon } from "@heroicons/react/20/solid";
 
 export default function ThankYouPage() {
   const router = useRouter();
@@ -39,12 +39,24 @@ export default function ThankYouPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gray-100/80 text-gray-800 p-4 relative z-[1000] mt-40">
-      <h1 className="text-2xl font-bold flex text-center mb-6"><span>Order Complete</span> <CheckCircleIcon className="h-8 text-green-700" /> </h1>
-      <h1 className="text-3xl font-bold text-green-600 mb-4">Thank You!</h1>
-      <p className="text-xl text-center text-gray-700">
-        Thank you, teachers, for all that you do. Your dedication is inspiring, and we are grateful for your hard work and commitment to educating our future.
-      </p>
+    <div className="flex flex-col  text-gray-800 p-4 relative z-[1000] mt-20">
+      <div className="flex flex-col items-center justify-center bg-gray-100 rounded-md p-4">
+      <div className="w-full max-w-md">
+        <h2 className="text-2xl font-semibold text-gray-800 flex items-center mb-4">
+          Thank You <StarIcon className="h-8 text-green-700 inline-block" />
+        </h2>
+        <div className="bg-white shadow-md rounded-lg p-4">
+          <h3 className="text-lg font-bold text-gray-900">
+            Thank you, teachers, for all that you do!
+          </h3>
+          <p className="text-sm text-gray-700 mt-2">
+            Your dedication is inspiring, and we are grateful for your hard work
+            and commitment to educating our future.
+          </p>
+          <p className="text-right text-gray-500 mt-4">Pencil Team</p>
+        </div>
+      </div>
+    </div>
     </div>
   );
 }
