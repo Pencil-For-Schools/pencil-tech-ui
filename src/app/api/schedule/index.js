@@ -45,16 +45,12 @@ const registerToShop = async ({ email, schoolId }) => {
   //   }),
   // });
 
-  // const { message, teacher_id, schedule_item_id } = await response.json();
+  // const data = await response.json();
+  // return data
 
-  // if (message === TEACHER_NOT_YET_SCHEDULED) {
-  //   redirect("/register-to-shop/teacher-info");
-  // }
-  redirect(
-    `/register-to-shop/teacher-info?email=${email}&school_id=${schoolId}&teacher_id=${3}&schedule_item_id=${5}`
-  );
-  return;
-  // return response.json();
+  return {
+      message: "TEACHER_NOT_YET_REGISTERED"
+    };
 };
 
 const createScheduleItemTeacher = async ({
@@ -89,7 +85,7 @@ const createScheduleItemTeacher = async ({
 };
 
 const getLocations = async () => {
-  const response = await fetch(`${dbUrl}/locations`);
+  // const response = await fetch(`${dbUrl}/locations`);
   // const locations = await response.json();
 
   const locations = [
