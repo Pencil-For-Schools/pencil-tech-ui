@@ -98,6 +98,7 @@ const InventoryListItem = ({ item, cart, setCart, qty }) => {
           type="number"
           value={quantity}
           readOnly
+          
           className="w-16 text-4xl text-center focus:outline-none"
           aria-label={`Quantity of ${item.name}`}
         />
