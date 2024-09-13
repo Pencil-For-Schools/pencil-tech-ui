@@ -101,7 +101,6 @@ export default function LoginPage({ params, searchParams }) {
             </option>
             <option value="1">Nashville</option>
             <option value="2">Antioch</option>
-            <option value="3">Madison</option>
           </select>
           <div className="mt-10">
             {!(searchParams.location || location) ||

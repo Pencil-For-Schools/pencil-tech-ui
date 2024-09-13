@@ -2,48 +2,45 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import SchoolsSelect from "@/components/SchoolsSelect";
+import ConfirmedDetailsComp from "@/components/Confirmed";
+import { singleSchedule } from "@/utils/data/singleSchedule";
 
 const intialState = {
   email: "",
-  school: "",
-};
-
-const schedule_item_sample = {
-  id: 1,
-  date: "January 21, 2025",
-  location: {
-    id: 1,
-    availability: 10,
-    loc: "Nashville Pencil Box",
-  },
-  time: "12:00 PM CST",
+  schoolId: "",
 };
 
 export default function ConfirmTime({ params, searchParams }) {
   const [email, setEmail] = useState(intialState.email);
-  const [school, setSchool] = useState(intialState.school);
-  const [scheduleItem, setScheduleItem] = useState({});
+  const [schoolId, setSchoolId] = useState(intialState.schoolId);
+  const [scheduleItem, setScheduleItem] = useState(singleSchedule);
+  const [confirmed, setConfirmed] = useState(false);
 
   const router = useRouter();
 
-  useEffect(() => {
-    // MAKE CALL TO API USING SEARCHPARAMS ID :
-    setScheduleItem(schedule_item_sample);
-  }, [params, searchParams]);
+  // TODO: FINISH OUT
+  // useEffect(() => {
+  //   // MAKE CALL TO API USING SEARCHPARAMS ID :
+  //   // getSingleSchedule(searchParams.schedule_item_id).then(setScheduleItem)
+
+  // }, [params, searchParams]);
 
   const resetForm = () => {
     setEmail(intialState.email);
-    setSchool(intialState.school);
+    setSchoolId(intialState.schoolId);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     console.log("Email", email);
-    console.log("School", school);
+    console.log("School", schoolId);
     console.log("YOU SUBMITTED, YA FILTHY ANIMAL! We need an API");
 
     resetForm();
+    // after API call resolves and response is registered,
+    setConfirmed(true);
   };
 
   const availability = scheduleItem?.location?.availability;
@@ -51,75 +48,70 @@ export default function ConfirmTime({ params, searchParams }) {
   return (
     <div className="flex flex-col items-center justify-center mt-[120px] relative z-[1000]">
       <div className="shadow-md bg-white/80 rounded-lg p-6 w-full max-w-sm">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Confirm Time</h2>
-        <div className="pt-6 rounded-md mb-6">
-          <p className="text-lg font-bold text-gray-900">{scheduleItem.date}</p>
-          <p className="text-lg text-gray-700">Time: {scheduleItem.time}</p>
-          <p className="text-lg text-gray-700">
-            Location: {scheduleItem?.location?.loc}
-          </p>
-          <p
-            className={`text-lg ${
-              availability ? "text-green-600 " : "text-red-600"
-            } font-semibold`}
-          >
-            Available Spots: {availability}
-          </p>
-        </div>
-
-        {availability ? (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Email Address
-              </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="example@email.com"
-                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                School Name
-              </label>
-              <select
-                value={school}
-                onChange={(e) => setSchool(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              >
-                <option value="">Select School</option>
-                <option value="School 1">School 1</option>
-                <option value="School 2">School 2</option>
-                {/* TODO: Connect to API Add more schools as needed */}
-              </select>
-            </div>
-            <div className="flex flex-col">
-              <button
-                type="submit"
-                className="flex-1 bg-blue-900 text-white px-4 py-4 rounded-md hover:bg-blue-600 mb-4 transition-colors"
-              >
-                Confirm
-              </button>
-            </div>
-          </form>
+        {confirmed ? (
+          <ConfirmedDetailsComp scheduleItem={scheduleItem} />
         ) : (
-          <h3 className="mb-5 font-bold">
-            There are no more availble spots for this time.
-          </h3>
-        )}
+          <>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">
+              Confirm Time
+            </h2>
+            {scheduleItem.title ? <p>{scheduleItem.title.toUpperCase()}</p> : "title here"}
+            <div className="rounded-md mb-6">
+              <p className="text-lg font-bold text-gray-900">
+                {scheduleItem.date}
+              </p>
+              <p className="text-lg text-gray-700">Time: {scheduleItem.time}</p>
+              <p className="text-lg text-gray-700">
+                Location: {scheduleItem?.location?.loc}
+              </p>
+              <p
+                className={`text-lg ${
+                  availability ? "text-green-600 " : "text-red-600"
+                } font-semibold`}
+              >
+                Available Spots: {availability}
+              </p>
+            </div>
+            {availability ? (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="example@email.com"
+                    className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+                <SchoolsSelect schoolId={schoolId} setSchoolId={setSchoolId} />
+                <div className="flex flex-col">
+                  <button
+                    type="submit"
+                    className="flex-1 bg-blue-900 text-white px-4 py-4 rounded-md hover:bg-blue-600 mb-4 transition-colors"
+                  >
+                    Confirm
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <h3 className="mb-5 font-bold">
+                There are no more availble spots for this time.
+              </h3>
+            )}
 
-        <button
-          type="button"
-          onClick={() => router.push("/select-time")}
-          className="w-full text-red-600 px-4 py-4 rounded-md border-red-600 border hover:bg-red-800 hover:text-white transition-colors"
-        >
-          Select a Different Time
-        </button>
+            <button
+              type="button"
+              onClick={() => router.push("/select-time")}
+              className="w-full text-red-600 px-4 py-4 rounded-md border-red-600 border hover:bg-red-800 hover:text-white transition-colors"
+            >
+              Select a Different Time
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

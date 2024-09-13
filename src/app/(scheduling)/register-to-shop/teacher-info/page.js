@@ -2,13 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { CheckIcon } from "@heroicons/react/20/solid";
+import SchoolsSelect from "@/components/SchoolsSelect";
+import ConfirmedDetailsComp from "@/components/Confirmed";
 
 const initialState = {
   email: "",
   firstName: "",
   lastName: "",
-  school: "",
+  schoolId: "",
+  phone:"",
 };
 
 const sampleSchoolData = {
@@ -22,21 +24,14 @@ const sampleSchoolData = {
   time: "12:00 PM CST",
 };
 
-
-const constantData = {
-  email: "email@pencilbox.com",
-  phoneNumber: "###-###-####",
-  questionOrConcern: "If you have any questions or concerns please contact Pencil Box:",
-  reminder: "You will receive an email 24 hours before your scheduled time for self-check in to start your shopping process.",
-  thanks: "Thanks for signing up.",
-}
-
+// http://localhost:3000/register-to-shop/teacher-info?email=email@remail.com&school_id=38&schedule_item_id=3
 export default function TeacherInfoPage({ params, searchParams }) {
   const [email, setEmail] = useState(searchParams.email);
   const [firstName, setFirstName] = useState(initialState.firstName);
   const [lastName, setLastName] = useState(initialState.lastName);
+  const [phone, setPhone] = useState(initialState.phone);
   const [loading, setLoading] = useState(true);
-  const [school, setSchool] = useState(searchParams.school_id);
+  const [schoolId, setSchoolId] = useState(searchParams.school_id);
   const [selectedShop, setSelectedShop] = useState({});
   const [confirmed, setConfirmed] = useState(false);
 
@@ -46,7 +41,8 @@ export default function TeacherInfoPage({ params, searchParams }) {
     setEmail(initialState.email);
     setFirstName(initialState.firstName);
     setLastName(initialState.lastName);
-    setSchool(initialState.school);
+    setSchoolId(initialState.schoolId);
+    setPhone(initialState.phone);
   };
 
   const handleSubmit = (e) => {
@@ -55,7 +51,7 @@ export default function TeacherInfoPage({ params, searchParams }) {
     console.log("First Name", firstName);
     console.log("Last Name", lastName);
     console.log("Email", email);
-    console.log("School", school);
+    console.log("School", schoolId);
     console.log("YOU SUBMITTED, YA FILTHY ANIMAL! We need an API");
 
     // ON SUCCESS, ROUTE TO CONFIRMATION
@@ -64,11 +60,15 @@ export default function TeacherInfoPage({ params, searchParams }) {
     resetForm();
   };
 
+  // TODO: FINISH WITH API
   useEffect(() => {
+    // make the fetch call to get schedule item data
+    // MAKE CALL TO API USING SEARCHPARAMS ID :
+    //   // getSingleSchedule(searchParams.schedule_item_id).then(setSelectedShop)
     setSelectedShop(sampleSchoolData);
   }, [params, searchParams]);
 
-  const availability = sampleSchoolData?.location?.availability;
+  const availability = selectedShop?.location?.availability;
 
   if (!loading) {
     return (
@@ -87,29 +87,7 @@ export default function TeacherInfoPage({ params, searchParams }) {
     <div className="flex flex-col items-center justify-center mt-[50px] relative z-[1000]">
       <div className="p-4 rounded-lg shadow-md w-full max-w-md bg-gray-50">
         {confirmed ? (
-          <>
-            <div className="flex gap-5 items-center mb-10">
-              <p className="font-bold text-3xl">Time Confirmed</p>
-              <CheckIcon className="bg-green-700 h-8 p-1 rounded-full text-white/90" />
-            </div>
-            <div className="p-6 rounded-md mb-6 bg-black">
-              <p className="font-bold text-2xl font-bold text-white">
-                {selectedShop.date}
-              </p>
-              <p className="text-lg text-white">Time: {selectedShop.time}</p>
-              <p className="text-lg text-white">
-                Location: {selectedShop?.location?.loc}
-              </p>
-            </div>
-            <div>
-              <p className="font-semibold text-xl pb-5">{constantData.thanks}</p>
-              <p className="font-medium text-lg pb-5">{constantData.reminder}</p>
-              <p className="text-black/50 font-light">
-                {constantData.questionOrConcern} {constantData.email} or{" "}
-                {constantData.phoneNumber}
-              </p>
-            </div>
-          </>
+          <ConfirmedDetailsComp scheduleItem={selectedShop} />
         ) : (
           <>
             <h2 className="font-bold text-3xl mb-5">Confirm Time</h2>
@@ -163,6 +141,19 @@ export default function TeacherInfoPage({ params, searchParams }) {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Phone Number"
+                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
                 Email Address
               </label>
               <input
@@ -171,41 +162,17 @@ export default function TeacherInfoPage({ params, searchParams }) {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="example@email.com"
                 className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                disabled
                 required
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                School Name
-              </label>
-              <select
-                value={school}
-                onChange={(e) => setSchool(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              >
-                <option value="" disabled>
-                  Select School
-                </option>
-                <option value="1">School 1</option>
-                <option value="2">School 2</option>
-                {/* TODO: Connect to API Add more schools as needed */}
-              </select>
-            </div>
+            <SchoolsSelect schoolId={schoolId} setSchoolId={setSchoolId} />
             <div className="flex flex-col">
               <button
                 type="submit"
                 className="flex-1 bg-blue-900 text-white px-4 py-4 rounded-md hover:bg-blue-600 mb-4 transition-colors"
               >
                 Confirm
-              </button>
-
-              <button
-                type="button"
-                onClick={() => router.push("/select-time")}
-                className="w-full text-red-600 px-4 py-4 rounded-md border-red-600 border hover:bg-red-800 hover:text-white transition-colors"
-              >
-                Select a Different Time
               </button>
             </div>
           </form>
