@@ -1,6 +1,7 @@
 import { CheckIcon } from "@heroicons/react/20/solid";
 import React from "react";
 
+// TODO: GET THE RIGHT DATA FOR THIS
 const constantData = {
   email: "email@pencilbox.com",
   phoneNumber: "###-###-####",

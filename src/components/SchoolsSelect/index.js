@@ -19,7 +19,7 @@ export default function SchoolsSelect({ schoolId, setSchoolId }) {
           className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
         >
-          <option>Select School</option>
+          <option disabled>Select School</option>
           {schoolSelectData.map((school) => (
             <option key={school.id} value={school.id}>{school.name}</option>
           ))}
