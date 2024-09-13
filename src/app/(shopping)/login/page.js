@@ -8,6 +8,7 @@ import {
   TEACHER_NOT_SCHEDULED,
   APPOINTMENT_IN_PAST,
   APPOINTMENT_IN_FUTURE,
+  ORDER_CREATED,
 } from "@/utils/constants";
 import { getLocations, createShoppingOrder } from "@/app/api/schedule";
 
@@ -38,40 +39,36 @@ export default function LoginPage({ params, searchParams }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const order_id = await createShoppingOrder({
+    const response = await createShoppingOrder({
       pencilId: pencilId || searchParams.pencilId,
-      locationId: location || searchParams.location,
     });
 
-    // Add canshop and order_id to local storage
-    localStorage.setItem("order_id", order_id);
-    localStorage.setItem("canshop", "true");
-    // Navigate to the shop page
-    router.push("/shop");
+    const { message } = response;
 
-    try {
-      // Uncomment one to trigger an error state
-      // throw new Error(TEACHER_PENCIL_ID_INVALID);
-      // throw new Error(TEACHER_NOT_SCHEDULED);
-      // throw new Error(APPOINTMENT_IN_FUTURE);
-      // throw new Error(APPOINTMENT_IN_PAST);
-    } catch (error) {
-      // TODO: When we have a payload from the api, the check should be on the error_type property
-      if (error.message === APPOINTMENT_IN_FUTURE) {
-        setIsFutureAppointment(true);
-        setShowForm(false);
-        return;
-      }
-      if (
-        error.message === TEACHER_PENCIL_ID_INVALID ||
-        error.message === TEACHER_NOT_SCHEDULED ||
-        error.message === APPOINTMENT_IN_PAST
-      ) {
-        setIsInvalidShoppingState(true);
-        setShowForm(false);
-        return;
-      }
-      console.error(error.message);
+    if (message === ORDER_CREATED) {
+      console.log("getting inside conditional!!");
+      // Add canshop and order_id to local storage
+      localStorage.setItem("order_id", response.order_id);
+      localStorage.setItem("canshop", "true");
+      // Navigate to the shop page
+      router.push("/shop");
+      return;
+    }
+
+    if (
+      message === TEACHER_PENCIL_ID_INVALID ||
+      message === TEACHER_NOT_SCHEDULED ||
+      message === APPOINTMENT_IN_PAST
+    ) {
+      setIsInvalidShoppingState(true);
+      setShowForm(false);
+      return;
+    }
+
+    if (message === APPOINTMENT_IN_FUTURE) {
+      setIsFutureAppointment(true);
+      setShowForm(false);
+      return;
     }
   };
 

@@ -1,6 +1,5 @@
 "use server";
 
-import { TEACHER_NOT_YET_SCHEDULED } from "@/utils/constants";
 import { redirect } from "next/navigation";
 
 const dbUrl = process.env.NEXT_PUBLIC_DATABASE_API;
@@ -107,26 +106,21 @@ const getLocations = async () => {
   return locations;
 };
 
-const createShoppingOrder = async ({ pencilId, locationId }) => {
-  try {
-    // const response = await fetch(`${dbUrl}/shopping/start`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     location_id: locationId,
-    //     pencil_id: pencilId,
-    //   }),
-    // });
+const createShoppingOrder = ({ pencilId }) => {
+  // const response = await fetch(`${dbUrl}/shopping/start/${pencilId}`, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // });
 
-    // const { order_id } = await response.json();
+  // const { order_id, message } = await response.json();
 
-    // return order_id;
-    return 5;
-  } catch (error) {
-    console.error(error);
-  }
+  // return order_id;
+  return {
+    message: "ORDER_CREATED",
+    order_id: 5,
+  };
 };
 
 export {
