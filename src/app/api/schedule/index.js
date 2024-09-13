@@ -89,6 +89,24 @@ const createScheduleItemTeacher = async ({
   return;
 };
 
+const getLocations = async () => {
+  const response = await fetch(`${dbUrl}/locations`);
+  // const locations = await response.json();
+
+  const locations = [
+    {
+      id: 1,
+      name: "Nashville",
+    },
+    {
+      id: 2,
+      name: "Antioch",
+    },
+  ];
+
+  return locations;
+};
+
 export {
   getSchedules,
   getSingleSchedule,
@@ -96,4 +114,5 @@ export {
   getSchools,
   registerToShop,
   createScheduleItemTeacher,
+  getLocations,
 };

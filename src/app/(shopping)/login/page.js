@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -9,6 +9,7 @@ import {
   APPOINTMENT_IN_PAST,
   APPOINTMENT_IN_FUTURE,
 } from "@/utils/constants";
+import { getLocations } from "@/app/api/schedule";
 
 const initialState = {
   pencilId: "",
@@ -28,7 +29,12 @@ export default function LoginPage({ params, searchParams }) {
     initialState.isFutureAppointment
   );
   const [showForm, setShowForm] = useState(true);
+  const [locations, setLocations] = useState([]);
   const router = useRouter();
+
+  useEffect(() => {
+    getLocations().then(setLocations);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -99,8 +105,11 @@ export default function LoginPage({ params, searchParams }) {
             <option value="" disabled>
               Select a Location
             </option>
-            <option value="1">Nashville</option>
-            <option value="2">Antioch</option>
+            {locations.map((location) => (
+              <option key={location.id} value={location.id}>
+                {location.name}
+              </option>
+            ))}
           </select>
           <div className="mt-10">
             {!(searchParams.location || location) ||
@@ -181,7 +190,7 @@ export default function LoginPage({ params, searchParams }) {
         <div className="text-left">
           <p className="font-semibold text-md pt-5">{`Don’t know your Pencil ID?`}</p>
           <p className="text-black/50 font-light">
-          You will receive the Pencil ID when you enter the store.
+            You will receive the Pencil ID when you enter the store.
           </p>
         </div>
       </div>
