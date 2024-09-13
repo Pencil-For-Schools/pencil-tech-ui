@@ -74,7 +74,7 @@ const year = d.getFullYear();
 export default function Footer() {
   return (
     <footer className="bg-white">
-      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
+      <div className="mx-auto max-w-7xl overflow-hidden px-6 pb-20 lg:px-8">
         <div className="mt-10 flex justify-center space-x-10">
           {navigation.social.map((item) => (
             <a
