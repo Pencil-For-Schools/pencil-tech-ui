@@ -107,6 +107,28 @@ const getLocations = async () => {
   return locations;
 };
 
+const createShoppingOrder = async ({ pencilId, locationId }) => {
+  try {
+    // const response = await fetch(`${dbUrl}/shopping/start`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     location_id: locationId,
+    //     pencil_id: pencilId,
+    //   }),
+    // });
+
+    // const { order_id } = await response.json();
+
+    // return order_id;
+    return 5;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export {
   getSchedules,
   getSingleSchedule,
@@ -115,4 +137,5 @@ export {
   registerToShop,
   createScheduleItemTeacher,
   getLocations,
+  createShoppingOrder,
 };
