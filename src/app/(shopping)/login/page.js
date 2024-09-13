@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -8,7 +8,9 @@ import {
   TEACHER_NOT_SCHEDULED,
   APPOINTMENT_IN_PAST,
   APPOINTMENT_IN_FUTURE,
+  ORDER_CREATED,
 } from "@/utils/constants";
+import { getLocations, createShoppingOrder } from "@/app/api/schedule";
 
 const initialState = {
   pencilId: "",
@@ -28,38 +30,45 @@ export default function LoginPage({ params, searchParams }) {
     initialState.isFutureAppointment
   );
   const [showForm, setShowForm] = useState(true);
+  const [locations, setLocations] = useState([]);
   const router = useRouter();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    try {
-      // Uncomment one to trigger an error state
-      // throw new Error(TEACHER_PENCIL_ID_INVALID);
-      // throw new Error(TEACHER_NOT_SCHEDULED);
-      // throw new Error(APPOINTMENT_IN_FUTURE);
-      // throw new Error(APPOINTMENT_IN_PAST);
+  useEffect(() => {
+    getLocations().then(setLocations);
+  }, []);
 
-      // Add canshop true to local storage
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await createShoppingOrder({
+      pencilId: pencilId || searchParams.pencilId,
+    });
+
+    const { message } = response;
+
+    if (message === ORDER_CREATED) {
+      console.log("getting inside conditional!!");
+      // Add canshop and order_id to local storage
+      localStorage.setItem("order_id", response.order_id);
       localStorage.setItem("canshop", "true");
       // Navigate to the shop page
       router.push("/shop");
-    } catch (error) {
-      // TODO: When we have a payload from the api, the check should be on the error_type property
-      if (error.message === APPOINTMENT_IN_FUTURE) {
-        setIsFutureAppointment(true);
-        setShowForm(false);
-        return;
-      }
-      if (
-        error.message === TEACHER_PENCIL_ID_INVALID ||
-        error.message === TEACHER_NOT_SCHEDULED ||
-        error.message === APPOINTMENT_IN_PAST
-      ) {
-        setIsInvalidShoppingState(true);
-        setShowForm(false);
-        return;
-      }
-      console.error(error.message);
+      return;
+    }
+
+    if (
+      message === TEACHER_PENCIL_ID_INVALID ||
+      message === TEACHER_NOT_SCHEDULED ||
+      message === APPOINTMENT_IN_PAST
+    ) {
+      setIsInvalidShoppingState(true);
+      setShowForm(false);
+      return;
+    }
+
+    if (message === APPOINTMENT_IN_FUTURE) {
+      setIsFutureAppointment(true);
+      setShowForm(false);
+      return;
     }
   };
 
@@ -99,8 +108,11 @@ export default function LoginPage({ params, searchParams }) {
             <option value="" disabled>
               Select a Location
             </option>
-            <option value="1">Nashville</option>
-            <option value="2">Antioch</option>
+            {locations.map((location) => (
+              <option key={location.id} value={location.id}>
+                {location.name}
+              </option>
+            ))}
           </select>
           <div className="mt-10">
             {!(searchParams.location || location) ||
@@ -181,7 +193,7 @@ export default function LoginPage({ params, searchParams }) {
         <div className="text-left">
           <p className="font-semibold text-md pt-5">{`Don’t know your Pencil ID?`}</p>
           <p className="text-black/50 font-light">
-          You will receive the Pencil ID when you enter the store.
+            You will receive the Pencil ID when you enter the store.
           </p>
         </div>
       </div>

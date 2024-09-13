@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import SchoolsSelect from "@/components/SchoolsSelect";
 import ConfirmedDetailsComp from "@/components/Confirmed";
 import { singleSchedule } from "@/utils/data/singleSchedule";
+import { getSingleSchedule, registerToShop } from "@/app/api/schedule";
 
 const intialState = {
   email: "",
@@ -19,24 +20,19 @@ export default function ConfirmTime({ params, searchParams }) {
 
   const router = useRouter();
 
-  // TODO: FINISH OUT
-  // useEffect(() => {
-  //   // MAKE CALL TO API USING SEARCHPARAMS ID :
-  //   // getSingleSchedule(searchParams.schedule_item_id).then(setScheduleItem)
-
-  // }, [params, searchParams]);
+  useEffect(() => {
+    getSingleSchedule(searchParams.schedule_item_id).then(setScheduleItem);
+  }, [params, searchParams]);
 
   const resetForm = () => {
     setEmail(intialState.email);
     setSchoolId(intialState.schoolId);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Email", email);
-    console.log("School", schoolId);
-    console.log("YOU SUBMITTED, YA FILTHY ANIMAL! We need an API");
+    await registerToShop({ email, schoolId });
 
     resetForm();
     // after API call resolves and response is registered,
@@ -55,7 +51,9 @@ export default function ConfirmTime({ params, searchParams }) {
             <h2 className="text-2xl font-bold text-gray-800 mb-4">
               Confirm Time
             </h2>
-            {scheduleItem.title ? <p>{scheduleItem.title.toUpperCase()}</p> : "title here"}
+            {scheduleItem.title ? (
+              <p>{scheduleItem.title.toUpperCase()}</p>
+            ) : null}
             <div className="rounded-md mb-6">
               <p className="text-lg font-bold text-gray-900">
                 {scheduleItem.date}

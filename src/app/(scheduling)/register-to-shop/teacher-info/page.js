@@ -4,24 +4,17 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import SchoolsSelect from "@/components/SchoolsSelect";
 import ConfirmedDetailsComp from "@/components/Confirmed";
+import {
+  getSingleSchedule,
+  createScheduleItemTeacher,
+} from "@/app/api/schedule";
 
 const initialState = {
   email: "",
   firstName: "",
   lastName: "",
   schoolId: "",
-  phone:"",
-};
-
-const sampleSchoolData = {
-  id: 1,
-  date: "January 21, 2025",
-  location: {
-    id: 1,
-    availability: 10,
-    loc: "Nashville Pencil Box",
-  },
-  time: "12:00 PM CST",
+  phone: "",
 };
 
 // http://localhost:3000/register-to-shop/teacher-info?email=email@remail.com&school_id=38&schedule_item_id=3
@@ -34,6 +27,10 @@ export default function TeacherInfoPage({ params, searchParams }) {
   const [schoolId, setSchoolId] = useState(searchParams.school_id);
   const [selectedShop, setSelectedShop] = useState({});
   const [confirmed, setConfirmed] = useState(false);
+  const [teacherId, setTeacherId] = useState(searchParams.teacher_id);
+  const [scheduleItemId, setScheduleItemId] = useState(
+    searchParams.schedule_item_id
+  );
 
   const router = useRouter();
 
@@ -45,16 +42,19 @@ export default function TeacherInfoPage({ params, searchParams }) {
     setPhone(initialState.phone);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("First Name", firstName);
-    console.log("Last Name", lastName);
-    console.log("Email", email);
-    console.log("School", schoolId);
-    console.log("YOU SUBMITTED, YA FILTHY ANIMAL! We need an API");
+    await createScheduleItemTeacher({
+      scheduleItemId,
+      email,
+      phone,
+      firstName,
+      lastName,
+      teacherId,
+      schoolId,
+    });
 
-    // ON SUCCESS, ROUTE TO CONFIRMATION
     setConfirmed(true);
 
     resetForm();
@@ -62,10 +62,8 @@ export default function TeacherInfoPage({ params, searchParams }) {
 
   // TODO: FINISH WITH API
   useEffect(() => {
-    // make the fetch call to get schedule item data
-    // MAKE CALL TO API USING SEARCHPARAMS ID :
-    //   // getSingleSchedule(searchParams.schedule_item_id).then(setSelectedShop)
-    setSelectedShop(sampleSchoolData);
+    const { schedule_item_id } = searchParams;
+    getSingleSchedule(schedule_item_id).then(setSelectedShop);
   }, [params, searchParams]);
 
   const availability = selectedShop?.location?.availability;

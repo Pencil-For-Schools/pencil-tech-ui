@@ -1,11 +1,14 @@
-'use client'
+"use client";
 
-import React from "react";
-import { schoolSelectData } from "./schoolSelectData";
+import React, { useEffect } from "react";
+import { getSchools } from "@/app/api/schedule";
 
 export default function SchoolsSelect({ schoolId, setSchoolId }) {
+  const [schoolList, setSchoolList] = React.useState([]);
 
-  // TODO: make call to API /schools to get all the list of schools from DB
+  useEffect(() => {
+    getSchools().then(setSchoolList);
+  }, []);
 
   return (
     <div>
@@ -20,8 +23,10 @@ export default function SchoolsSelect({ schoolId, setSchoolId }) {
           required
         >
           <option disabled>Select School</option>
-          {schoolSelectData.map((school) => (
-            <option key={school.id} value={school.id}>{school.name}</option>
+          {schoolList.map((school) => (
+            <option key={school.id} value={school.id}>
+              {school.name}
+            </option>
           ))}
         </select>
       </div>
