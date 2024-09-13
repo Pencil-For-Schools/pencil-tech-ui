@@ -25,13 +25,6 @@ export default function RootLayout({ children }) {
               alt="A cartoon pencil"
               className="h-[50px] pr-3 relative z-[1000]"
             />
-            <div className="text-left">
-              {/* Doubled the font size */}
-              <h1 className="text-black font-bold text-xl pt-2 relative z-[1000] ">
-                DG PENCIL BOX
-              </h1>{" "}
-              {/* Doubled the font size */}
-            </div>
           </div>
         </Link>
         <div>
