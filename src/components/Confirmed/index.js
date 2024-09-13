@@ -18,7 +18,7 @@ export default function ConfirmedDetailsComp({ scheduleItem }) {
         <CheckIcon className="bg-green-700 h-8 p-1 rounded-full text-white/90" />
       </div>
       <div className="p-6 rounded-md mb-6 bg-black">
-        <p className="font-bold text-2xl font-bold text-white">
+        <p className="font-bold text-2xl text-white">
           {scheduleItem.date}
         </p>
         <p className="text-lg text-white">Time: {scheduleItem.time}</p>
