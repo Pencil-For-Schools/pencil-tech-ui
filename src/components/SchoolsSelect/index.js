@@ -5,6 +5,8 @@ import { schoolSelectData } from "./schoolSelectData";
 
 export default function SchoolsSelect({ schoolId, setSchoolId }) {
 
+  // TODO: make call to API /schools to get all the list of schools from DB
+
   return (
     <div>
       <div>
