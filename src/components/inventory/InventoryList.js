@@ -111,14 +111,14 @@ export default function InventoryList() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex items-center justify-center min-h-screen bg-[#D0ECF9]">
         <div className="loader border-t-4 border-blue-500 border-solid rounded-full w-12 h-12 animate-spin"></div>
       </div>
     );
   }
 
   return (
-    <div className="relative bg-white ">
+    <div className="relative ">
       {/* Container for responsiveness and max width */}
       <div className="max-w-xl mx-auto p-4 pb-20">
         {/* Search Bar and Review Order Button */}
@@ -126,22 +126,22 @@ export default function InventoryList() {
           <div className="flex justify-between pb-3">
             <div className="flex justify-left">
               <img
-                src="/images/pencil-icon-2.f7c1ee4b.svg"
+                src="/images/LOGO-PENCIL_DGPENCILBox_2022.png"
                 id="pencil-icon"
                 alt="A cartoon pencil"
-                className="h-6 w-6 pr-3"
+                className="h-[40px] pr-3"
               />
               <div className="text-left">
                 {/* Doubled the font size */}
-                <h1 className="text-black font-bold text-lg">
-                  PENCIL BOX
+                <h1 className="text-black font-bold text-lg pt-2">
+                  DG PENCIL BOX
                 </h1>{" "}
                 {/* Doubled the font size */}
               </div>
             </div>
             {/* <div>Welcome, NAME!</div> */}
           </div>
-          <div className="flex items-center bg-gray-100 w-full max-w-md px-3">
+          <div className="flex items-center  w-full max-w-md px-3">
             <input
               type="text"
               placeholder="Search for supplies..."

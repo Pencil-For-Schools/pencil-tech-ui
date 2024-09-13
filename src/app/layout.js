@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { head } from "@/utils";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,23 +17,23 @@ export default function RootLayout({ children }) {
       {head}
       <body>
         {/* BACKGROUND */}
-          <Link href="/">
-        <div className="flex justify-left z-[900] p-4">
+        <Link href="/">
+          <div className="flex justify-left z-[900] p-4">
             <img
-              src="/images/pencil-icon-2.f7c1ee4b.svg"
+              src="/images/LOGO-PENCIL_DGPENCILBox_2022.png"
               id="pencil-icon"
               alt="A cartoon pencil"
-              className="h-10 w-10 pr-3 relative z-[1000]"
+              className="h-[50px] pr-3 relative z-[1000]"
             />
             <div className="text-left">
               {/* Doubled the font size */}
-              <h1 className="text-black font-bold text-xl relative z-[1000]">
-                PENCIL BOX
+              <h1 className="text-black font-bold text-xl pt-2 relative z-[1000] ">
+                DG PENCIL BOX
               </h1>{" "}
               {/* Doubled the font size */}
             </div>
-        </div>
-          </Link>
+          </div>
+        </Link>
         <div>
           <div className="blob-1"></div>
           <div className="blob-2"></div>
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
           <div className="dotted-line-2"></div>
         </div>
         {children}
+        <Footer />
       </body>
     </html>
   );
