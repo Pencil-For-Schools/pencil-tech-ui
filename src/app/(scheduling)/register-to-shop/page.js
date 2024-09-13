@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import SchoolsSelect from "@/components/SchoolsSelect";
 import ConfirmedDetailsComp from "@/components/Confirmed";
 import { singleSchedule } from "@/utils/data/singleSchedule";
-import { getSingleSchedule } from "@/app/api/schedule";
+import { getSingleSchedule, registerToShop } from "@/app/api/schedule";
 
 const intialState = {
   email: "",
@@ -29,12 +29,13 @@ export default function ConfirmTime({ params, searchParams }) {
     setSchoolId(intialState.schoolId);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log("Email", email);
     console.log("School", schoolId);
     console.log("YOU SUBMITTED, YA FILTHY ANIMAL! We need an API");
+    await registerToShop({ email, schoolId });
 
     resetForm();
     // after API call resolves and response is registered,

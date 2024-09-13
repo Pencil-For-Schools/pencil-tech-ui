@@ -1,6 +1,10 @@
-// import { schedules } from "@/utils/data/sample_schedules_response";
+"use server";
+
+import { schedules } from "@/utils/data/sample_schedules_response";
 import { singleSchedule } from "@/utils/data/singleSchedule";
 import { schoolSelectData } from "@/components/SchoolsSelect/schoolSelectData";
+import { TEACHER_NOT_YET_SCHEDULED } from "@/utils/constants";
+import { redirect } from "next/navigation";
 
 const dbUrl = process.env.NEXT_PUBLIC_DATABASE_API;
 
@@ -8,7 +12,9 @@ const getSchedules = async (monthId) => {
   const response = await fetch(`${dbUrl}/schedules?month=${monthId}`);
   const data = response.json();
 
-  return data;
+  return schedules;
+
+  // return data;
 };
 
 // TODO: switch this out for real API response
@@ -35,4 +41,32 @@ const getSchools = async () => {
   // return data;
 };
 
-export { getSchedules, getSingleSchedule, cancelScheduledItem, getSchools };
+const registerToShop = async ({ email, schoolId }) => {
+  // const response = await fetch(`${dbUrl}/register`, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({
+  //     email,
+  //     school_id: schoolId,
+  //   }),
+  // });
+
+  // const { message } = await response.json();
+
+  // if (message === TEACHER_NOT_YET_SCHEDULED) {
+  //   redirect("/register-to-shop/teacher-info");
+  // }
+  redirect("/register-to-shop/teacher-info");
+  return;
+  // return response.json();
+};
+
+export {
+  getSchedules,
+  getSingleSchedule,
+  cancelScheduledItem,
+  getSchools,
+  registerToShop,
+};
