@@ -1,6 +1,5 @@
 "use server";
 
-import { schedules } from "@/utils/data/sample_schedules_response";
 import { singleSchedule } from "@/utils/data/singleSchedule";
 import { schoolSelectData } from "@/components/SchoolsSelect/schoolSelectData";
 import { TEACHER_NOT_YET_SCHEDULED } from "@/utils/constants";
@@ -10,11 +9,9 @@ const dbUrl = process.env.NEXT_PUBLIC_DATABASE_API;
 
 const getSchedules = async (monthId) => {
   const response = await fetch(`${dbUrl}/schedules?month=${monthId}`);
-  const data = response.json();
+  const schedules = await response.json();
 
   return schedules;
-
-  // return data;
 };
 
 // TODO: switch this out for real API response
