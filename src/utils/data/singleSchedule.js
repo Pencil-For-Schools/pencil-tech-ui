@@ -1,6 +1,7 @@
 export const singleSchedule = {
   id: 1,
-  date: "January 21, 2025",
+  title: 'Fall Break Restock',
+  date: "October 21, 2024",
   location: {
     id: 1,
     availability: 10,

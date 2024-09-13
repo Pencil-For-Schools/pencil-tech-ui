@@ -5,21 +5,29 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const d = new Date();
-let defaultMonth = d.getMonth();
+const defaultMonth = d.getMonth();
+const days = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
 export default function SelectTime() {
   const [monthId, setMonthId] = useState(defaultMonth + 1);
   const [scheduleList, setScheduleList] = useState([]);
-  
+
   const handleChange = async (e) => {
-    setMonthId(e.target.value)
+    setMonthId(e.target.value);
     const schedules = await getSchedules(e.target.value);
     setScheduleList(schedules);
-  }
+  };
 
   useEffect(() => {
-    getSchedules(monthId).then(setScheduleList)
-  }, [])
+    getSchedules(monthId).then(setScheduleList);
+  }, []);
 
   return (
     <main>
@@ -28,7 +36,7 @@ export default function SelectTime() {
 
         <select
           value={monthId}
-          className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 relative z-[1000]"
+          className="min-w-[375px] p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 relative z-[1000]"
           onChange={handleChange}
         >
           <option value="" disabled>
@@ -49,14 +57,13 @@ export default function SelectTime() {
         </select>
 
         <ul className="flex flex-col gap-8">
-          {
-            scheduleList.length ? (scheduleList.map((item) => (
-            <ShopListItem data={item} key={item.id} />
-          ))) : (
+          {scheduleList.length ? (
+            scheduleList.map((item) => (
+              <ShopListItem data={item} key={item.id} />
+            ))
+          ) : (
             <h2 className="text-2xl">Nothing Scheduled This Month</h2>
-          )
-          }
-          
+          )}
         </ul>
       </div>
     </main>
@@ -70,14 +77,16 @@ function ShopListItem({ data }) {
       className="bg-white border flex flex-col gap-3 p-6 rounded-lg min-w-[375px] shadow-md"
       key={data.id}
     >
-      <p className="font-bold text-2xl">{data.date}</p>
-
+      {data.title ? <p>{data.title}</p> : ""}
+      <p className="font-bold text-xl">
+        {days[new Date(data.date).getDay()]}, {data.date}
+      </p>
       <div className="flex flex-col gap-1">
         <p className="font-medium">Time: {data.time}</p>
         <p className="font-light">Location: {data.location.loc}</p>
         <p
           className={`font-semibold ${
-            data.location.availability === 0 && "text-red-500"
+            data.location.availability === 0 ? "text-red-500" : "text-green-700"
           }`}
         >
           Available Spots: {data.location.availability}

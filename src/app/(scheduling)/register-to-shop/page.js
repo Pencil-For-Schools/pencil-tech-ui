@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import SchoolsSelect from "@/components/SchoolsSelect";
 import ConfirmedDetailsComp from "@/components/Confirmed";
+import { singleSchedule } from "@/utils/data/singleSchedule";
 
 const intialState = {
   email: "",
@@ -13,7 +14,7 @@ const intialState = {
 export default function ConfirmTime({ params, searchParams }) {
   const [email, setEmail] = useState(intialState.email);
   const [schoolId, setSchoolId] = useState(intialState.schoolId);
-  const [scheduleItem, setScheduleItem] = useState({});
+  const [scheduleItem, setScheduleItem] = useState(singleSchedule);
   const [confirmed, setConfirmed] = useState(false);
 
   const router = useRouter();
@@ -42,7 +43,7 @@ export default function ConfirmTime({ params, searchParams }) {
     setConfirmed(true);
   };
 
-  const availability = !scheduleItem?.location?.availability;
+  const availability = scheduleItem?.location?.availability;
 
   return (
     <div className="flex flex-col items-center justify-center mt-[120px] relative z-[1000]">
@@ -54,7 +55,8 @@ export default function ConfirmTime({ params, searchParams }) {
             <h2 className="text-2xl font-bold text-gray-800 mb-4">
               Confirm Time
             </h2>
-            <div className="pt-6 rounded-md mb-6">
+            {scheduleItem.title ? <p>{scheduleItem.title.toUpperCase()}</p> : "title here"}
+            <div className="rounded-md mb-6">
               <p className="text-lg font-bold text-gray-900">
                 {scheduleItem.date}
               </p>
