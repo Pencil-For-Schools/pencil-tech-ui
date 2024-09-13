@@ -6,17 +6,16 @@ export default function TeamPencilHack() {
       <img src="/images/team-pencil.png" />
       <div className="px-10 py-5">
         <p>
-          We are more than just a team; we're a diverse and passionate group of
+          {`We are more than just a team; we're a diverse and passionate group of
           innovators committed to making a difference. Each of us brings unique
           skills, perspectives, and creativity to the table, united by our
           shared goal of building solutions that matter. Whether it’s crafting
           seamless user experiences, developing rock-solid code, or pushing
           boundaries with new ideas, we pour our hearts into every line of code
-          and every design detail.
+          and every design detail.`}
         </p>
 
         <h2 className="text-bold mt-3 text-red-800">Meet the Dream Team:</h2>
-
         <ul>
           <li>Lori McCurry</li>
           <li>Justin Ferwerda</li>
