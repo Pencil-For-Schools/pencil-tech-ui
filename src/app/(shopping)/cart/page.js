@@ -37,7 +37,8 @@ export default function Cart() {
     router.push("/shop");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    await finalizeOrder(cart);
     localStorage.removeItem("cart");
     sessionStorage.setItem("showThankYou", "true");
     router.push("/thank-you");
@@ -63,22 +64,32 @@ export default function Cart() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr>
-                    <th className="border-b-2 border-gray-300 pb-2 text-left text-gray-700 font-semibold">Item</th>
-                    <th className="border-b-2 border-gray-300 pb-2 text-right text-gray-700 font-semibold">Qty</th>
+                    <th className="border-b-2 border-gray-300 pb-2 text-left text-gray-700 font-semibold">
+                      Item
+                    </th>
+                    <th className="border-b-2 border-gray-300 pb-2 text-right text-gray-700 font-semibold">
+                      Qty
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {Object.values(cart).map((item) => (
                     <tr key={item.item_id} className="border-b border-gray-200">
                       <td className="py-2 text-gray-800">{item.name}</td>
-                      <td className="py-2 text-right font-semibold text-gray-800">{item.qty}</td>
+                      <td className="py-2 text-right font-semibold text-gray-800">
+                        {item.qty}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td className="pt-4 font-bold text-green-700">Total Impact</td>
-                    <td className="pt-4 text-right font-bold text-green-700">${impact.toFixed(2)}</td>
+                    <td className="pt-4 font-bold text-green-700">
+                      Total Impact
+                    </td>
+                    <td className="pt-4 text-right font-bold text-green-700">
+                      ${impact.toFixed(2)}
+                    </td>
                   </tr>
                 </tfoot>
               </table>
