@@ -38,7 +38,7 @@ export default function Cart() {
   };
 
   const handleSubmit = async () => {
-    await finalizeOrder(cart);
+    // await finalizeOrder(cart);
     localStorage.removeItem("cart");
     sessionStorage.setItem("showThankYou", "true");
     router.push("/thank-you");

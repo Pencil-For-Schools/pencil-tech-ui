@@ -123,18 +123,18 @@ const createShoppingOrder = ({ pencilId }) => {
   };
 };
 
-const finalizeOrder = async (cart) => {
-  // const response = await fetch(`${dbUrl}/shopping/checkout`, {
-  //   method: "DELETE",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //     body: JSON.stringify(cart),
-  // });
+// const finalizeOrder = async (cart) => {
+//   // const response = await fetch(`${dbUrl}/shopping/checkout`, {
+//   //   method: "DELETE",
+//   //   headers: {
+//   //     "Content-Type": "application/json",
+//   //   },
+//   //     body: JSON.stringify(cart),
+//   // });
 
-  // return response.json();
-  return;
-};
+//   // return response.json();
+//   return;
+// };
 
 export {
   getSchedules,
@@ -145,5 +145,5 @@ export {
   createScheduleItemTeacher,
   getLocations,
   createShoppingOrder,
-  finalizeOrder,
+  // finalizeOrder,
 };
