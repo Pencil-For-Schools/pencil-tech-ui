@@ -2,21 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { getSingleSchedule } from "@/app/api/schedule";
 
 const intialState = {
   email: "",
   school: "",
-};
-
-const schedule_item_sample = {
-  id: 1,
-  date: "January 21, 2025",
-  location: {
-    id: 1,
-    availability: 10,
-    loc: "Nashville Pencil Box",
-  },
-  time: "12:00 PM CST",
 };
 
 export default function ConfirmTime({ params, searchParams }) {
@@ -28,7 +18,7 @@ export default function ConfirmTime({ params, searchParams }) {
 
   useEffect(() => {
     // MAKE CALL TO API USING SEARCHPARAMS ID :
-    setScheduleItem(schedule_item_sample);
+    getSingleSchedule(searchParams.schedule_item_id).then(setScheduleItem)
   }, [params, searchParams]);
 
   const resetForm = () => {
