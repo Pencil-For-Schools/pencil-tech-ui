@@ -171,6 +171,7 @@ export default function TeacherInfoPage({ params, searchParams }) {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="example@email.com"
                 className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                disabled
                 required
               />
             </div>
@@ -198,14 +199,6 @@ export default function TeacherInfoPage({ params, searchParams }) {
                 className="flex-1 bg-blue-900 text-white px-4 py-4 rounded-md hover:bg-blue-600 mb-4 transition-colors"
               >
                 Confirm
-              </button>
-
-              <button
-                type="button"
-                onClick={() => router.push("/select-time")}
-                className="w-full text-red-600 px-4 py-4 rounded-md border-red-600 border hover:bg-red-800 hover:text-white transition-colors"
-              >
-                Select a Different Time
               </button>
             </div>
           </form>
