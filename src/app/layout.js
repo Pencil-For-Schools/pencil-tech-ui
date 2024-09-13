@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { head } from "@/utils";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
           <div className="dotted-line-2"></div>
         </div>
         {children}
+        <Footer />
       </body>
     </html>
   );
