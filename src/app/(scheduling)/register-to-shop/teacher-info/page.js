@@ -4,7 +4,10 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import SchoolsSelect from "@/components/SchoolsSelect";
 import ConfirmedDetailsComp from "@/components/Confirmed";
-import { getSingleSchedule } from "../../../api/schedule";
+import {
+  getSingleSchedule,
+  createScheduleItemTeacher,
+} from "@/app/api/schedule";
 
 const initialState = {
   email: "",
@@ -24,6 +27,10 @@ export default function TeacherInfoPage({ params, searchParams }) {
   const [schoolId, setSchoolId] = useState(searchParams.school_id);
   const [selectedShop, setSelectedShop] = useState({});
   const [confirmed, setConfirmed] = useState(false);
+  const [teacherId, setTeacherId] = useState(searchParams.teacher_id);
+  const [scheduleItemId, setScheduleItemId] = useState(
+    searchParams.schedule_item_id
+  );
 
   const router = useRouter();
 
@@ -35,16 +42,19 @@ export default function TeacherInfoPage({ params, searchParams }) {
     setPhone(initialState.phone);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("First Name", firstName);
-    console.log("Last Name", lastName);
-    console.log("Email", email);
-    console.log("School", schoolId);
-    console.log("YOU SUBMITTED, YA FILTHY ANIMAL! We need an API");
+    await createScheduleItemTeacher({
+      scheduleItemId,
+      email,
+      phone,
+      firstName,
+      lastName,
+      teacherId,
+      schoolId,
+    });
 
-    // ON SUCCESS, ROUTE TO CONFIRMATION
     setConfirmed(true);
 
     resetForm();

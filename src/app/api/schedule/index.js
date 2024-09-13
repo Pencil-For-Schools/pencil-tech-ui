@@ -65,10 +65,42 @@ const registerToShop = async ({ email, schoolId }) => {
   // return response.json();
 };
 
+const createScheduleItemTeacher = async ({
+  scheduleItemId,
+  firstName,
+  lastName,
+  email,
+  phone,
+  teacherId,
+  schoolId,
+}) => {
+  // const response = await fetch(
+  //   `${dbUrl}/schedules/${scheduleItemId}/new_teacher`,
+  //   {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       email,
+  //       phone,
+  //       first_name: firstName,
+  //       last_name: lastName,
+  //       teacher_id: teacherId,
+  //       school_id: schoolId,
+  //     }),
+  //   }
+  // );
+
+  // return response.json();
+  return;
+};
+
 export {
   getSchedules,
   getSingleSchedule,
   cancelScheduledItem,
   getSchools,
   registerToShop,
+  createScheduleItemTeacher,
 };
