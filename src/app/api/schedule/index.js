@@ -1,6 +1,5 @@
 "use server";
 
-import { singleSchedule } from "@/utils/data/singleSchedule";
 import { schoolSelectData } from "@/components/SchoolsSelect/schoolSelectData";
 import { TEACHER_NOT_YET_SCHEDULED } from "@/utils/constants";
 import { redirect } from "next/navigation";
@@ -17,7 +16,7 @@ const getSchedules = async (monthId) => {
 // TODO: switch this out for real API response
 const getSingleSchedule = async (scheduleId) => {
   const response = await fetch(`${dbUrl}/schedules/${scheduleId}`);
-  const data = response.json();
+  const singleSchedule = await response.json();
 
   return singleSchedule;
 };

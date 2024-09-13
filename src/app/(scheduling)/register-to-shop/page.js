@@ -53,9 +53,7 @@ export default function ConfirmTime({ params, searchParams }) {
             </h2>
             {scheduleItem.title ? (
               <p>{scheduleItem.title.toUpperCase()}</p>
-            ) : (
-              "title here"
-            )}
+            ) : null}
             <div className="rounded-md mb-6">
               <p className="text-lg font-bold text-gray-900">
                 {scheduleItem.date}
