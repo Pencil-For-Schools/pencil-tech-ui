@@ -111,14 +111,14 @@ export default function InventoryList() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex items-center justify-center min-h-screen bg-[#D0ECF9]">
         <div className="loader border-t-4 border-blue-500 border-solid rounded-full w-12 h-12 animate-spin"></div>
       </div>
     );
   }
 
   return (
-    <div className="relative bg-white ">
+    <div className="relative ">
       {/* Container for responsiveness and max width */}
       <div className="max-w-xl mx-auto p-4 pb-20">
         {/* Search Bar and Review Order Button */}
@@ -141,7 +141,7 @@ export default function InventoryList() {
             </div>
             {/* <div>Welcome, NAME!</div> */}
           </div>
-          <div className="flex items-center bg-gray-100 w-full max-w-md px-3">
+          <div className="flex items-center  w-full max-w-md px-3">
             <input
               type="text"
               placeholder="Search for supplies..."
