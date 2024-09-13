@@ -1,6 +1,5 @@
 "use server";
 
-import { schoolSelectData } from "@/components/SchoolsSelect/schoolSelectData";
 import { TEACHER_NOT_YET_SCHEDULED } from "@/utils/constants";
 import { redirect } from "next/navigation";
 
@@ -30,11 +29,9 @@ const cancelScheduledItem = async (schduleItemId) => {
 
 const getSchools = async () => {
   const response = await fetch(`${dbUrl}/schools`);
-  const data = response.json();
+  const schools = await response.json();
 
-  return schoolSelectData;
-
-  // return data;
+  return schools;
 };
 
 const registerToShop = async ({ email, schoolId }) => {
