@@ -10,6 +10,7 @@ const initialState = {
   firstName: "",
   lastName: "",
   schoolId: "",
+  phone:"",
 };
 
 const sampleSchoolData = {
@@ -28,6 +29,7 @@ export default function TeacherInfoPage({ params, searchParams }) {
   const [email, setEmail] = useState(searchParams.email);
   const [firstName, setFirstName] = useState(initialState.firstName);
   const [lastName, setLastName] = useState(initialState.lastName);
+  const [phone, setPhone] = useState(initialState.phone);
   const [loading, setLoading] = useState(true);
   const [schoolId, setSchoolId] = useState(searchParams.school_id);
   const [selectedShop, setSelectedShop] = useState({});
@@ -40,6 +42,7 @@ export default function TeacherInfoPage({ params, searchParams }) {
     setFirstName(initialState.firstName);
     setLastName(initialState.lastName);
     setSchoolId(initialState.schoolId);
+    setPhone(initialState.phone);
   };
 
   const handleSubmit = (e) => {
@@ -132,6 +135,19 @@ export default function TeacherInfoPage({ params, searchParams }) {
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 placeholder="Last Name"
+                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Phone Number"
                 className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
