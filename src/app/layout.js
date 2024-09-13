@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
       <body>
         {/* BACKGROUND */}
           <Link href="/">
-        <div className="flex justify-left z-[1000] p-4">
+        <div className="flex justify-left z-[900] p-4">
             <img
               src="/images/pencil-icon-2.f7c1ee4b.svg"
               id="pencil-icon"

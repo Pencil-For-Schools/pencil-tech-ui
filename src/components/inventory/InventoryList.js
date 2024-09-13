@@ -122,8 +122,8 @@ export default function InventoryList() {
       {/* Container for responsiveness and max width */}
       <div className="max-w-xl mx-auto p-4 pb-20">
         {/* Search Bar and Review Order Button */}
-        <div className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 p-4 flex max-w-xl mx-auto flex-col">
-          <div className="flex justify-between z-50 pb-3">
+        <div className="fixed top-0 left-0 z-[1000] right-0 bg-white shadow-md p-4 flex max-w-xl mx-auto flex-col">
+          <div className="flex justify-between pb-3">
             <div className="flex justify-left">
               <img
                 src="/images/pencil-icon-2.f7c1ee4b.svg"
@@ -139,7 +139,7 @@ export default function InventoryList() {
                 {/* Doubled the font size */}
               </div>
             </div>
-            <div>Welcome, NAME!</div>
+            {/* <div>Welcome, NAME!</div> */}
           </div>
           <div className="flex items-center bg-gray-100 w-full max-w-md px-3">
             <input
