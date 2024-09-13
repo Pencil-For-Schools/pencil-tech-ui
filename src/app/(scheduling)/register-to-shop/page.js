@@ -6,6 +6,7 @@ import SchoolsSelect from "@/components/SchoolsSelect";
 import ConfirmedDetailsComp from "@/components/Confirmed";
 import { singleSchedule } from "@/utils/data/singleSchedule";
 import { getSingleSchedule, registerToShop } from "@/app/api/schedule";
+import { SUCCESSFUL_SCHEDULE_REGISTRATION, TEACHER_NOT_YET_REGISTERED } from "@/utils/constants";
 
 const intialState = {
   email: "",
@@ -32,11 +33,23 @@ export default function ConfirmTime({ params, searchParams }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await registerToShop({ email, schoolId });
+    // TODO WHEN ENDPOINT IS WORKING WE WILL GET VALUES FOR THESE
+    const { message, teacher_id, schedule_item_id } = await registerToShop({ email, schoolId });
 
-    resetForm();
-    // after API call resolves and response is registered,
-    setConfirmed(true);
+    if (message === SUCCESSFUL_SCHEDULE_REGISTRATION) {
+      resetForm();
+      // after API call resolves and response is registered,
+      setConfirmed(true);
+      return
+    }
+
+    if (message === TEACHER_NOT_YET_REGISTERED) {
+      // TODO NEED TO GET VALUES FROM ENDPOINT
+      router.push(`/register-to-shop/teacher-info?email=${email}&school_id=${schoolId}&teacher_id=${3}&schedule_item_id=${5}`)
+      return
+    }
+
+
   };
 
   const availability = scheduleItem?.location?.availability;
@@ -63,9 +76,8 @@ export default function ConfirmTime({ params, searchParams }) {
                 Location: {scheduleItem?.location?.loc}
               </p>
               <p
-                className={`text-lg ${
-                  availability ? "text-green-600 " : "text-red-600"
-                } font-semibold`}
+                className={`text-lg ${availability ? "text-green-600 " : "text-red-600"
+                  } font-semibold`}
               >
                 Available Spots: {availability}
               </p>
