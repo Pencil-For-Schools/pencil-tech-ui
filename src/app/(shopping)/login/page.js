@@ -167,12 +167,23 @@ export default function LoginPage({ params, searchParams }) {
 
             <div className="text-left pt-5">
               {/* ADD LINK TO RESET FORM */}
-              <button onClick={resetComp}><span className="hover:underline text-sm text-blue-600">Try Again</span></button>
+              <button onClick={resetComp}>
+                <span className="hover:underline text-sm text-blue-600">
+                  Try Again
+                </span>
+              </button>
             </div>
           </div>
         )}
 
         {showForm && formElement()}
+
+        <div className="text-left">
+          <p className="font-semibold text-md pt-5">{`Don’t know your Pencil ID?`}</p>
+          <p className="text-black/50 font-light">
+          You will receive the Pencil ID when you enter the store.
+          </p>
+        </div>
       </div>
     </div>
   );
