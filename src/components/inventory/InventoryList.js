@@ -131,13 +131,6 @@ export default function InventoryList() {
                 alt="A cartoon pencil"
                 className="h-[40px] pr-3"
               />
-              <div className="text-left">
-                {/* Doubled the font size */}
-                <h1 className="text-black font-bold text-lg pt-2">
-                  DG PENCIL BOX
-                </h1>{" "}
-                {/* Doubled the font size */}
-              </div>
             </div>
             {/* <div>Welcome, NAME!</div> */}
           </div>

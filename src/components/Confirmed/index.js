@@ -3,10 +3,9 @@ import React from "react";
 
 // TODO: GET THE RIGHT DATA FOR THIS
 const constantData = {
-  email: "email@pencilbox.com",
-  phoneNumber: "###-###-####",
+  email: "jwright@pencil615.org",
   questionOrConcern: "If you have any questions or concerns please contact Pencil Box:",
-  reminder: "You will receive an email 24 hours before your scheduled time for self-check in to start your shopping process.",
+  reminder: "You will receive an email reminder 24 hours before your scheduled time.",
   thanks: "Thanks for signing up.",
 }
 
@@ -30,8 +29,7 @@ export default function ConfirmedDetailsComp({ scheduleItem }) {
         <p className="font-semibold text-xl pb-5">{constantData.thanks}</p>
         <p className="font-medium text-lg pb-5">{constantData.reminder}</p>
         <p className="text-black/50 font-light">
-          {constantData.questionOrConcern} {constantData.email} or{" "}
-          {constantData.phoneNumber}
+          {constantData.questionOrConcern} <a href={`mailto:${constantData.email}`}>{constantData.email}</a>
         </p>
       </div>
     </>
