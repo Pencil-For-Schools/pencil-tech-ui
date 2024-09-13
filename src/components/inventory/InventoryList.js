@@ -126,15 +126,15 @@ export default function InventoryList() {
           <div className="flex justify-between pb-3">
             <div className="flex justify-left">
               <img
-                src="/images/pencil-icon-2.f7c1ee4b.svg"
+                src="/images/LOGO-PENCIL_DGPENCILBox_2022.png"
                 id="pencil-icon"
                 alt="A cartoon pencil"
-                className="h-6 w-6 pr-3"
+                className="h-[40px] pr-3"
               />
               <div className="text-left">
                 {/* Doubled the font size */}
-                <h1 className="text-black font-bold text-lg">
-                  PENCIL BOX
+                <h1 className="text-black font-bold text-lg pt-2">
+                  DG PENCIL BOX
                 </h1>{" "}
                 {/* Doubled the font size */}
               </div>
