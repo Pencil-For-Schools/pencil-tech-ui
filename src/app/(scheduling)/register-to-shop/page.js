@@ -32,9 +32,6 @@ export default function ConfirmTime({ params, searchParams }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Email", email);
-    console.log("School", schoolId);
-    console.log("YOU SUBMITTED, YA FILTHY ANIMAL! We need an API");
     await registerToShop({ email, schoolId });
 
     resetForm();

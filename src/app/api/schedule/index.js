@@ -53,12 +53,14 @@ const registerToShop = async ({ email, schoolId }) => {
   //   }),
   // });
 
-  // const { message } = await response.json();
+  // const { message, teacher_id, schedule_item_id } = await response.json();
 
   // if (message === TEACHER_NOT_YET_SCHEDULED) {
   //   redirect("/register-to-shop/teacher-info");
   // }
-  redirect("/register-to-shop/teacher-info");
+  redirect(
+    `/register-to-shop/teacher-info?email=${email}&school_id=${schoolId}&teacher_id=${3}&schedule_item_id=${5}`
+  );
   return;
   // return response.json();
 };

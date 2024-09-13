@@ -4,24 +4,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import SchoolsSelect from "@/components/SchoolsSelect";
 import ConfirmedDetailsComp from "@/components/Confirmed";
+import { getSingleSchedule } from "../../../api/schedule";
 
 const initialState = {
   email: "",
   firstName: "",
   lastName: "",
   schoolId: "",
-  phone:"",
-};
-
-const sampleSchoolData = {
-  id: 1,
-  date: "January 21, 2025",
-  location: {
-    id: 1,
-    availability: 10,
-    loc: "Nashville Pencil Box",
-  },
-  time: "12:00 PM CST",
+  phone: "",
 };
 
 // http://localhost:3000/register-to-shop/teacher-info?email=email@remail.com&school_id=38&schedule_item_id=3
@@ -62,10 +52,8 @@ export default function TeacherInfoPage({ params, searchParams }) {
 
   // TODO: FINISH WITH API
   useEffect(() => {
-    // make the fetch call to get schedule item data
-    // MAKE CALL TO API USING SEARCHPARAMS ID :
-    //   // getSingleSchedule(searchParams.schedule_item_id).then(setSelectedShop)
-    setSelectedShop(sampleSchoolData);
+    const { schedule_item_id } = searchParams;
+    getSingleSchedule(schedule_item_id).then(setSelectedShop);
   }, [params, searchParams]);
 
   const availability = selectedShop?.location?.availability;
