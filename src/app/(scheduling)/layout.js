@@ -1,3 +1,7 @@
-export default function ReserveTimeLayout({ children }) {
-  return <section>{children}</section>
+export default function SchedulingLayout({ children }) {
+  return (
+    <>
+      {children}
+    </>
+  );
 }

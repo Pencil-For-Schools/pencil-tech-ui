@@ -36,9 +36,9 @@
   background-size: 12em;
   background-position-y: -1em;
   background-position-x: 0;
-  width: 50%;
+  width: 20%;
   z-index: 2;
-  left: 0;
+  right: 0;
   top: 0
 }
 
@@ -50,13 +50,13 @@
 
 .dotted-line-2 {
   background: url(/media/background/Vector-4.a3db0006.svg) no-repeat;
-  background-size: 14.2em;
+  background-size: 20em;
   background-position-y: .8em;
-  background-position-x: -2.9em;
-  width: 55%;
+  background-position-x: -10em;
+  width: 100%;
   z-index: 0;
   right: 0;
-  top: 4.5em
+  top: 0;
 }
 
 @font-face {
